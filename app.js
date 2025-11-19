@@ -26,9 +26,11 @@ app.use(
 );
 
 // Import routers
+const indexRouter = require('./routes/indexRouter');
 const usersRouter = require('./routes/usersRouter');
 
 // Routers
+app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 app.listen(PORT, (err) => {
