@@ -1,0 +1,59 @@
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+
+module.exports = {
+  getUser: async (req, res) => {
+    // Find the requested user
+    const user = await prisma.user.findUnique({
+      where: {
+        username: req.body.username,
+      },
+      select: {
+        username: true,
+      },
+    });
+
+    // If the user doesn't exist, throw an error message
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found.',
+      });
+    }
+
+    res.json({
+      success: true,
+      user,
+    });
+  },
+  getUserChats: async (req, res) => {
+    const chats = await prisma.chat.findMany({
+      where: {
+        members: {
+          some: {
+            id: req.user.id,
+          },
+        },
+      },
+      select: {
+        name: true,
+        members: {
+          select: {
+            id: true,
+            username: true,
+          },
+        },
+      },
+    });
+
+    // Format the chats to exclude the user himself
+    const formatted = chats.map((chat) => {
+      return {
+        name: chat.name,
+        members: chat.members.filter((member) => member.id !== req.user.id),
+      };
+    });
+
+    res.json({ success: true, chats: formatted });
+  },
+};
