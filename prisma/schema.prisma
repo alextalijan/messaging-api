@@ -12,3 +12,28 @@ datasource db {
   provider = "postgresql"
   url      = env("DEVELOPMENT_DATABASE_URL")
 }
+
+model Message {
+  id       String   @id @default(uuid())
+  text     String
+  date     DateTime @default(now())
+  sender   User     @relation(references: [id], fields: [senderId])
+  senderId String
+  chat     Chat     @relation(fields: [chatId], references: [id])
+  chatId   String
+}
+
+model User {
+  id       String    @id @default(uuid())
+  username String    @unique
+  hash     String
+  chats    Chat[]
+  messages Message[]
+}
+
+model Chat {
+  id       String    @id @default(uuid())
+  name     String
+  messages Message[]
+  members  User[]
+}
