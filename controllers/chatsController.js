@@ -35,11 +35,27 @@ module.exports = {
         },
         members: {
           select: {
+            id: true,
             username: true,
           },
         },
       },
     });
+
+    // If the user is not a part of the chat, stop them from reading it
+    let found = false;
+    for (const member of chat.members) {
+      if (member.id === req.user.id) {
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      return res.json({
+        success: false,
+        message: 'Not authorized to see this chat.',
+      });
+    }
 
     res.json({ success: true, chat });
   },
