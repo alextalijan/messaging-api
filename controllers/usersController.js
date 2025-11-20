@@ -56,4 +56,11 @@ module.exports = {
 
     res.json({ success: true, chats: formatted });
   },
+  getChatMessages: async (req, res) => {
+    const messages = await prisma.message.findMany({
+      where: {
+        chatId: req.params,
+      },
+    });
+  },
 };

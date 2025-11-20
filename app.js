@@ -28,10 +28,12 @@ app.use(
 // Import routers
 const indexRouter = require('./routes/indexRouter');
 const usersRouter = require('./routes/usersRouter');
+const chatsRouter = require('./routes/chatsRouter');
 
 // Routers
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/chats', chatsRouter);
 
 app.listen(PORT, (err) => {
   if (err) {
