@@ -29,4 +29,13 @@ module.exports = {
 
     res.json({ success: true, message: 'User created.' });
   },
+  logout: (req, res, next) => {
+    req.logout((err) => {
+      if (err) {
+        return next(err);
+      }
+
+      res.json({ success: true, message: 'Logged out.' });
+    });
+  },
 };
