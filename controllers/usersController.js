@@ -52,6 +52,7 @@ module.exports = {
         },
       },
       select: {
+        id: true,
         name: true,
         members: {
           select: {
@@ -72,6 +73,13 @@ module.exports = {
             date: 'desc',
           },
           take: 1,
+        },
+      },
+      orderBy: {
+        messages: {
+          _max: {
+            date: 'desc',
+          },
         },
       },
     });
