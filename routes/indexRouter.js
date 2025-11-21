@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const controller = require('../controllers/indexController');
-const passport = require('../app');
+const passport = require('passport');
 
 router.post('/register', controller.register);
 router.post('/login', (req, res, next) => {
