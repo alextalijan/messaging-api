@@ -6,7 +6,7 @@ module.exports = {
     // Find the requested user
     const user = await prisma.user.findUnique({
       where: {
-        username: req.body.username,
+        username: req.params.username,
       },
       select: {
         username: true,
