@@ -59,6 +59,20 @@ module.exports = {
             username: true,
           },
         },
+        messages: {
+          select: {
+            text: true,
+            sender: {
+              select: {
+                username: true,
+              },
+            },
+          },
+          orderBy: {
+            date: 'desc',
+          },
+          take: 1,
+        },
       },
     });
 
@@ -67,6 +81,7 @@ module.exports = {
       return {
         name: chat.name,
         members: chat.members.filter((member) => member.id !== req.user.id),
+        lastMessage: chat.messages[0],
       };
     });
 
