@@ -35,6 +35,14 @@ module.exports = {
     });
   },
   getUserChats: async (req, res) => {
+    // If the user requesting is not the one whose chats are
+    if (req.user.username !== req.params.username) {
+      // Stop them from accessing them
+      return res
+        .status(401)
+        .json({ success: false, message: 'Not authorized.' });
+    }
+
     const chats = await prisma.chat.findMany({
       where: {
         members: {
