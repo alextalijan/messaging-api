@@ -2,6 +2,13 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 module.exports = {
+  returnUser: (req, res) => {
+    if (req.isAuthenticated()) {
+      return res.json({ user: req.user });
+    }
+
+    res.json({ user: null });
+  },
   getUser: async (req, res) => {
     // Find the requested user
     const user = await prisma.user.findUnique({

@@ -4,6 +4,7 @@ const isAuthenticated = require('../utils/isAuthenticated');
 // Import controller
 const controller = require('../controllers/usersController');
 
+router.get('/me', controller.returnUser);
 router.get('/:username', controller.getUser);
 router.get('/:username/chats', isAuthenticated, controller.getUserChats);
 
