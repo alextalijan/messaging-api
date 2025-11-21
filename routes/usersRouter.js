@@ -7,5 +7,6 @@ const controller = require('../controllers/usersController');
 router.get('/me', controller.returnUser);
 router.get('/:username', controller.getUser);
 router.get('/:username/chats', isAuthenticated, controller.getUserChats);
+router.put('/:username/status', isAuthenticated, controller.updateStatus);
 
 module.exports = router;

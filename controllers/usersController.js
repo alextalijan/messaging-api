@@ -71,4 +71,19 @@ module.exports = {
       },
     });
   },
+  updateStatus: async (req, res) => {
+    const updatedUser = await prisma.user.update({
+      where: {
+        username: req.params.username,
+      },
+      data: {
+        status: req.body.status,
+      },
+      select: {
+        status: true,
+      },
+    });
+
+    res.json({ success: true, status: updatedUser.status });
+  },
 };
