@@ -51,9 +51,7 @@ module.exports = {
           },
         },
       },
-      select: {
-        id: true,
-        name: true,
+      include: {
         members: {
           select: {
             id: true,
@@ -63,6 +61,7 @@ module.exports = {
         messages: {
           select: {
             text: true,
+            date: true,
             sender: {
               select: {
                 username: true,
@@ -75,13 +74,13 @@ module.exports = {
           take: 1,
         },
       },
-      orderBy: {
-        messages: {
-          _max: {
-            date: 'desc',
-          },
-        },
-      },
+    });
+
+    // Sort the chats from latest active
+    chats.sort((chatA, chatB) => {
+      const dateA = chatA.messages[0].date;
+      const dateB = chatB.messages[0].date;
+      return dateB - dateA;
     });
 
     // Format the chats to exclude the user himself
@@ -89,7 +88,7 @@ module.exports = {
       return {
         name: chat.name,
         members: chat.members.filter((member) => member.id !== req.user.id),
-        lastMessage: chat.messages[0],
+        lastMessage: chat.messages[0] || null,
       };
     });
 
