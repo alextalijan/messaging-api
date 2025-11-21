@@ -29,12 +29,9 @@ module.exports = {
 
     res.json({ success: true, message: 'User created.' });
   },
-  logout: (req, res, next) => {
-    req.logout((err) => {
-      if (err) {
-        return next(err);
-      }
-
+  logout: (req, res) => {
+    req.session.destroy((err) => {
+      res.clearCookie('connect.sid');
       res.json({ success: true, message: 'Logged out.' });
     });
   },

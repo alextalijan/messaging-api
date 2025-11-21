@@ -17,6 +17,7 @@ module.exports = {
       },
       select: {
         username: true,
+        status: true,
       },
     });
 
