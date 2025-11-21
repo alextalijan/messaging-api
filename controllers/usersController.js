@@ -76,6 +76,11 @@ module.exports = {
       },
     });
 
+    // If the chats are empty, return the empty array
+    if (chats.length === 0) {
+      return res.json({ success: true, chats: [] });
+    }
+
     // Sort the chats from latest active
     chats.sort((chatA, chatB) => {
       const dateA = chatA.messages[0].date;
