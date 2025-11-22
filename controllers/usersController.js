@@ -91,6 +91,7 @@ module.exports = {
     // Format the chats to exclude the user himself
     const formatted = chats.map((chat) => {
       return {
+        id: chat.id,
         name: chat.name,
         members: chat.members.filter((member) => member.id !== req.user.id),
         lastMessage: chat.messages[0] || null,
