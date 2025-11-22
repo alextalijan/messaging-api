@@ -34,7 +34,7 @@ module.exports = {
             date: 'asc',
           },
           take: 20,
-          skip: req.body.page * 20,
+          skip: parseInt(req.query.page) * 20,
         },
         members: {
           select: {
@@ -60,7 +60,7 @@ module.exports = {
       });
     }
 
-    res.json({ success: true, chat });
+    res.json({ success: true, messages: chat.messages || [] });
   },
   sendChatMessage: async (req, res) => {
     await prisma.message.create({
