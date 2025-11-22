@@ -1,10 +1,13 @@
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+
 module.exports = {
   createChat: async (req, res) => {
     await prisma.chat.create({
       data: {
         name: req.body.name,
         members: {
-          connect: req.body.members.map((member) => ({ id: member.id })),
+          connect: req.body.members.map((member) => ({ username: member })),
         },
       },
     });
