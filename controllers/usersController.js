@@ -90,7 +90,7 @@ module.exports = {
         id: chat.id,
         name: chat.name,
         members: chat.members.filter((member) => member.id !== req.user.id),
-        lastMessage: chat.lastMessageAt,
+        lastMessage: chat.messages[0] || null,
       };
     });
 
