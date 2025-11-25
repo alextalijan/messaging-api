@@ -74,6 +74,9 @@ module.exports = {
           take: 1,
         },
       },
+      orderBy: {
+        lastMessageAt: 'desc',
+      },
     });
 
     // If the chats are empty, return the empty array
@@ -81,20 +84,13 @@ module.exports = {
       return res.json({ success: true, chats: [] });
     }
 
-    // Sort the chats from latest active
-    chats.sort((chatA, chatB) => {
-      const dateA = chatA.messages[0].date;
-      const dateB = chatB.messages[0].date;
-      return dateB - dateA;
-    });
-
     // Format the chats to exclude the user himself
     const formatted = chats.map((chat) => {
       return {
         id: chat.id,
         name: chat.name,
         members: chat.members.filter((member) => member.id !== req.user.id),
-        lastMessage: chat.messages[0] || null,
+        lastMessage: chat.lastMessageAt,
       };
     });
 

@@ -33,10 +33,11 @@ model User {
 }
 
 model Chat {
-  id       String    @id @default(uuid())
-  name     String
-  messages Message[]
-  members  User[]
+  id            String    @id @default(uuid())
+  name          String
+  messages      Message[]
+  members       User[]
+  lastMessageAt DateTime?
 }
 
 model Session {

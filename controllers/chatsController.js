@@ -70,6 +70,14 @@ module.exports = {
         chatId: req.params.chatId,
       },
     });
+    await prisma.chat.update({
+      where: {
+        id: req.params.chatId,
+      },
+      data: {
+        lastMessageAt: new Date(),
+      },
+    });
 
     res.json({ success: true, message: 'Message sent successfully.' });
   },
