@@ -63,6 +63,14 @@ module.exports = {
     res.json({ success: true, messages: chat.messages || [] });
   },
   sendChatMessage: async (req, res) => {
+    // Check if the message is empty
+    if (req.body.text === '') {
+      return res.json({
+        success: false,
+        message: 'Cannot send emtpy message.',
+      });
+    }
+
     await prisma.message.create({
       data: {
         text: req.body.text,
