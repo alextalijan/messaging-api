@@ -31,9 +31,10 @@ module.exports = {
             },
           },
           orderBy: {
-            date: 'asc',
+            date: 'desc',
           },
           take: 20,
+          // This skips
           skip: parseInt(req.query.page) * 20,
         },
         members: {
@@ -59,6 +60,9 @@ module.exports = {
         message: 'Not authorized to see this chat.',
       });
     }
+
+    // Reverse the order of the chat
+    chat.messages.reverse();
 
     res.json({ success: true, messages: chat.messages || [] });
   },
