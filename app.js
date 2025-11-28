@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 3000;
 // Set up cors
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: 'https://messaging-frontend-weld.vercel.app/',
     credentials: true,
   })
 );
